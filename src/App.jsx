@@ -9,11 +9,14 @@ function App() {
     { id: 3, title: 'Le Vieux Nègre et la Médaille', author: 'Ferdinand Oyono', price: 4000 },
   ])
 
-  // State for the three input fields
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [price, setPrice] = useState('')
-
+  // Which book is being edited (null = none), and its temporary values
+  const [editingId, setEditingId] = useState(null)
+  const [editTitle, setEditTitle] = useState('')
+  const [editAuthor, setEditAuthor] = useState('')
+  const [editPrice, setEditPrice] = useState('')
   // Runs when the user clicks "Add Book"
   function handleAddBook() {
     if (title === '' || author === '' || price === '') {
@@ -62,13 +65,53 @@ function App() {
       <ul>
         {books.map((book) => (
           <li key={book.id}>
-            <strong>{book.title}</strong> — {book.author} ({book.price} FCFA)
-            <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
+            {editingId === book.id ? (
+              <>
+                <input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
+                <input value={editAuthor} onChange={(e) => setEditAuthor(e.target.value)} />
+                <input value={editPrice} onChange={(e) => setEditPrice(e.target.value)} />
+                <button onClick={() => handleSaveEdit(book.id)}>Save</button>
+                <button onClick={handleCancelEdit}>Cancel</button>
+              </>
+            ) : (
+              <>
+                <span>
+                  <strong>{book.title}</strong> — {book.author} ({book.price} FCFA)
+                </span>
+                <span>
+                  <button onClick={() => handleStartEdit(book)}>Edit</button>
+                  <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
+                </span>
+              </>
+            )}
           </li>
         ))}
       </ul>
     </div>
   )
+
+  // Click "Edit": remember which book, and pre-fill its current values
+  function handleStartEdit(book) {
+    setEditingId(book.id)
+    setEditTitle(book.title)
+    setEditAuthor(book.author)
+    setEditPrice(book.price)
+  }
+
+  // Click "Save": update that book in the list
+  function handleSaveEdit(id) {
+    setBooks(books.map((book) =>
+      book.id === id
+        ? { ...book, title: editTitle, author: editAuthor, price: Number(editPrice) }
+        : book
+    ))
+    setEditingId(null) // leave edit mode
+  }
+
+  // Click "Cancel": just leave edit mode, change nothing
+  function handleCancelEdit() {
+    setEditingId(null)
+  }
 }
 
 export default App
