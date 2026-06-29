@@ -71,41 +71,48 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>📚 Bookshop Inventory</h1>
+    <div className="app">
+      <div className="container">
+        <h1>📚 Bookshop Inventory</h1>
+        <p className="count">{books.length} book(s) in stock</p>
 
-      <div className="form-container">
-        <input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <input placeholder="Author" value={author} onChange={(e) => setAuthor(e.target.value)} />
-        <input placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
-        <button onClick={handleAddBook}>Add Book</button>
+        <div className="form-container">
+          <input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input placeholder="Author" value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+          <button onClick={handleAddBook}>Add Book</button>
+        </div>
+
+        <ul>
+          {books.length === 0 ? (
+            <p className="empty">No books yet. Add your first book above! 📖</p>
+          ) : (
+            books.map((book) => (
+              <li key={book.id}>
+                {editingId === book.id ? (
+                  <>
+                    <input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
+                    <input value={editAuthor} onChange={(e) => setEditAuthor(e.target.value)} />
+                    <input value={editPrice} onChange={(e) => setEditPrice(e.target.value)} />
+                    <button onClick={() => handleSaveEdit(book.id)}>Save</button>
+                    <button onClick={handleCancelEdit}>Cancel</button>
+                  </>
+                ) : (
+                  <>
+                    <span>
+                      <strong>{book.title}</strong> — {book.author} ({book.price} FCFA)
+                    </span>
+                    <span>
+                      <button onClick={() => handleStartEdit(book)}>Edit</button>
+                      <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
+                    </span>
+                  </>
+                )}
+              </li>
+            ))
+          )}
+        </ul>
       </div>
-
-      <ul>
-        {books.map((book) => (
-          <li key={book.id}>
-            {editingId === book.id ? (
-              <>
-                <input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
-                <input value={editAuthor} onChange={(e) => setEditAuthor(e.target.value)} />
-                <input value={editPrice} onChange={(e) => setEditPrice(e.target.value)} />
-                <button onClick={() => handleSaveEdit(book.id)}>Save</button>
-                <button onClick={handleCancelEdit}>Cancel</button>
-              </>
-            ) : (
-              <>
-                <span>
-                  <strong>{book.title}</strong> — {book.author} ({book.price} FCFA)
-                </span>
-                <span>
-                  <button onClick={() => handleStartEdit(book)}>Edit</button>
-                  <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
-                </span>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }

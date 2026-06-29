@@ -1,66 +1,125 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background-color: #f4f6f8;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background-color: #0f172a;
+  color: #e2e8f0;
   margin: 0;
-  padding: 20px;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 h1 {
   text-align: center;
-  color: #2c3e50;
+  color: #f8fafc;
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+
+.count {
+  text-align: center;
+  color: #94a3b8;
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 14px;
 }
 
 .form-container {
   display: flex;
   gap: 10px;
-  justify-content: center;
   margin-bottom: 30px;
   flex-wrap: wrap;
+  background-color: #1e293b;
+  padding: 16px;
+  border-radius: 12px;
 }
 
 input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  flex: 1;
+  min-width: 120px;
+  padding: 11px 14px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  background-color: #0f172a;
+  color: #e2e8f0;
   font-size: 14px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #3b82f6;
 }
 
 button {
-  padding: 10px 16px;
+  padding: 11px 18px;
   border: none;
-  border-radius: 6px;
-  background-color: #3498db;
+  border-radius: 8px;
+  background-color: #3b82f6;
   color: white;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #2563eb;
 }
 
 ul {
   list-style: none;
   padding: 0;
-  max-width: 700px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 li {
-  background-color: white;
-  padding: 14px 18px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #1e293b;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
+  border: 1px solid #334155;
+  transition: border-color 0.2s;
+}
+
+li:hover {
+  border-color: #475569;
+}
+
+li strong {
+  color: #f8fafc;
 }
 
 li button {
-  background-color: #e74c3c;
+  background-color: #334155;
+  margin-left: 6px;
 }
 
 li button:hover {
-  background-color: #c0392b;
+  background-color: #475569;
+}
+
+li input {
+  flex: 1;
+  margin-right: 4px;
+}
+
+.empty {
+  text-align: center;
+  color: #64748b;
+  font-size: 16px;
+  margin-top: 50px;
 }
